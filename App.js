@@ -12,7 +12,15 @@ export default function App() {
     <>
       <StatusBar />
       <View style={styles.container}>
-        <MapView style={styles.map} initialRegion={regiaoInicial} />
+        <MapView
+          style={styles.map}
+          initialRegion={regiaoInicial}
+          liteMode={false}
+          mapType="hybrid"
+          userInterfaceStyle="dark"
+          maxZoomLevel={18}
+          minZoomLevel={15}
+        />
       </View>
     </>
   );
