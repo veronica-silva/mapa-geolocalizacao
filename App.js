@@ -34,7 +34,7 @@ export default function App() {
               console.log(event.nativeEvent);
             }}
           >
-            <Image source={require("./assets/ghost.png")} />
+            {/* <Image source={require("./assets/ghost.png")} /> */}
           </Marker>
         </MapView>
       </View>
