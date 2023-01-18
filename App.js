@@ -1,10 +1,17 @@
 import { StyleSheet, Text, View, StatusBar } from "react-native";
-import MapView from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 
 export default function App() {
   const regiaoInicial = {
     latitude: -23.52618,
     longitude: -46.54027,
+    latitudeDelta: 0.0222,
+    longitudeDelta: 0.00121,
+  };
+
+  const localizacao = {
+    latitude: -23.533399562155157,
+    longitude: -46.542586864417835,
     latitudeDelta: 0.0222,
     longitudeDelta: 0.00121,
   };
@@ -17,10 +24,17 @@ export default function App() {
           initialRegion={regiaoInicial}
           liteMode={false}
           mapType="hybrid"
-          userInterfaceStyle="dark"
-          maxZoomLevel={18}
-          minZoomLevel={15}
-        />
+          userInterfaceStyle="light"
+        >
+          <Marker
+            draggable
+            coordinate={localizacao}
+            title="Aqui!"
+            onPress={(event) => {
+              console.log(event.nativeEvent);
+            }}
+          />
+        </MapView>
       </View>
     </>
   );
