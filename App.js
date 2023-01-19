@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { StyleSheet, Text, View, StatusBar, Image } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
@@ -9,33 +10,36 @@ export default function App() {
     longitudeDelta: 0.00121,
   };
 
-  const localizacao = {
-    latitude: -23.533399562155157,
-    longitude: -46.542586864417835,
+  const [local, setLocal] = useState({
+    latitude: -23.52618,
+    longitude: -46.54027,
     latitudeDelta: 0.0222,
     longitudeDelta: 0.00121,
+  });
+
+  const newLocal = (event) => {
+    setLocal({
+      ...local,
+      latitude: event.nativeEvent.coordinate.latitude,
+      longitude: event.nativeEvent.coordinate.longitude,
+    });
+    console.log(local);
   };
   return (
     <>
       <StatusBar />
       <View style={styles.container}>
         <MapView
+          onPress={newLocal}
           style={styles.map}
+          mapType="standard"
           initialRegion={regiaoInicial}
-          liteMode={false}
-          mapType="hybrid"
-          userInterfaceStyle="light"
         >
           <Marker
-            draggable
-            coordinate={localizacao}
+            coordinate={local}
             title="Aqui!"
-            onPress={(event) => {
-              console.log(event.nativeEvent);
-            }}
-          >
-            {/* <Image source={require("./assets/ghost.png")} /> */}
-          </Marker>
+            onPress={(e) => console.log(e.nativeEvent)}
+          />
         </MapView>
       </View>
     </>
