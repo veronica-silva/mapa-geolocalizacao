@@ -10,12 +10,7 @@ export default function App() {
     longitudeDelta: 0.00121,
   };
 
-  const [local, setLocal] = useState({
-    latitude: -23.52618,
-    longitude: -46.54027,
-    latitudeDelta: 0.0222,
-    longitudeDelta: 0.00121,
-  });
+  const [local, setLocal] = useState();
 
   const newLocal = (event) => {
     setLocal({
@@ -33,13 +28,15 @@ export default function App() {
           onPress={newLocal}
           style={styles.map}
           mapType="standard"
-          initialRegion={regiaoInicial}
+          region={local ?? regiaoInicial}
         >
-          <Marker
-            coordinate={local}
-            title="Aqui!"
-            onPress={(e) => console.log(e.nativeEvent)}
-          />
+          {local && (
+            <Marker
+              coordinate={local}
+              title="Aqui!"
+              onPress={(e) => console.log(e.nativeEvent)}
+            />
+          )}
         </MapView>
       </View>
     </>
