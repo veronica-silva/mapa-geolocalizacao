@@ -1,8 +1,25 @@
-import { useState } from "react";
-import { StyleSheet, Text, View, StatusBar, Image } from "react-native";
+import { useEffect, useState } from "react";
+import { StyleSheet, Text, View, StatusBar, Image, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import * as Location from "expo-location";
 
 export default function App() {
+  const [myLocal, setMyLocal] = useState(null);
+
+  useEffect(() => {
+    async function getLocal() {
+      const { status } = Location.requestForegroundPermissionsAsync();
+
+      // if (status !== "granted") {
+      //   Alert.alert("pode não", "é crime");
+      //   return;
+      // }
+      let currentLocal = await Location.getCurrentPositionAsync({});
+      setMyLocal(currentLocal);
+    }
+    getLocal();
+  }, []);
+
   const regiaoInicial = {
     latitude: -23.52618,
     longitude: -46.54027,
@@ -15,10 +32,10 @@ export default function App() {
   const newLocal = (event) => {
     setLocal({
       ...local,
-      latitude: event.nativeEvent.coordinate.latitude,
-      longitude: event.nativeEvent.coordinate.longitude,
+      latitude: myLocal.coords.latitude,
+      longitude: myLocal.coords.longitude,
     });
-    console.log(local);
+    console.log(myLocal);
   };
   return (
     <>
