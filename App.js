@@ -41,20 +41,28 @@ export default function App() {
     <>
       <StatusBar />
       <View style={styles.container}>
-        <MapView
-          onPress={newLocal}
-          style={styles.map}
-          mapType="standard"
-          region={local ?? regiaoInicial}
-        >
-          {local && (
-            <Marker
-              coordinate={local}
-              title="Aqui!"
-              onPress={(e) => console.log(e.nativeEvent)}
-            />
-          )}
-        </MapView>
+        <View style={estilos.botao}>
+          <Button
+            title="descobrir minha localização"
+            onPress={novaLocalizacao}
+          />
+        </View>
+        <View style={estilos.viewMapa}>
+          <MapView
+            onPress={newLocal}
+            style={styles.map}
+            mapType="standard"
+            region={local ?? regiaoInicial}
+          >
+            {local && (
+              <Marker
+                coordinate={local}
+                title="Aqui!"
+                onPress={(e) => console.log(e.nativeEvent)}
+              />
+            )}
+          </MapView>
+        </View>
       </View>
     </>
   );
@@ -64,6 +72,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  botao: {},
+  viewMapa: { flex: 1 },
   map: {
     width: "100%",
     height: "100%",
